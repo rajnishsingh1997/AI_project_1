@@ -1,4 +1,4 @@
-import { Agent,run  } from "@openai/agents";
+import { Agent, run } from "@openai/agents";
 import { openBrowserTool } from "../tools/browserTool.js";
 import { z } from "zod";
 
@@ -15,7 +15,7 @@ const browserAgentOutputSchema = z.object({
     .describe("The current URL of the browser after navigation, if successful"),
 });
 
-const browserAgent = new Agent({
+export const browserAgent = new Agent({
   name: "BrowserAgent",
   description:
     "An agent that can open URLs in a controlled browser environment.",
