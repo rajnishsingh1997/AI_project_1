@@ -9,7 +9,7 @@ const browser = await chromium.launch({
   args: ["--disable-extensions", "--disable-file-system"],
 });
 const page = await browser.newPage({
-  viewport: { width: 1920, height: 1080 },
+   viewport: { width: 1280, height: 720 },
 });
 
 const openBrowserTool = tool({
@@ -17,7 +17,7 @@ const openBrowserTool = tool({
   description:
     "Opens a URL in a controlled browser environment and prepares it for further interaction",
   parameters: z.object({
-    url: z.url().description("The URL to open in the browser"),
+    url: z.string().describe("The URL to open in the browser"),
   }),
   async execute({ url }) {
     try {
@@ -36,3 +36,5 @@ const openBrowserTool = tool({
     }
   },
 });
+
+export { openBrowserTool };
