@@ -22,3 +22,7 @@ export const browserAgent = new Agent({
   tools: [openBrowserTool],
   outputType: browserAgentOutputSchema,
 });
+
+const result = await run(browserAgent, 'https://www.google.com');
+
+console.log(result.finalOutput);

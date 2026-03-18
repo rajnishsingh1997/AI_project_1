@@ -1,16 +1,7 @@
 import { tool } from "@openai/agents";
 import { z } from "zod";
 import { chromium } from "playwright";
-
-const browser = await chromium.launch({
-  headless: false,
-  chromiumSandbox: true,
-  env: {},
-  args: ["--disable-extensions", "--disable-file-system"],
-});
-const page = await browser.newPage({
-   viewport: { width: 1280, height: 720 },
-});
+import { setPage } from "../state/browserState.js";
 
 const openBrowserTool = tool({
   name: "openBrowser",
@@ -21,6 +12,21 @@ const openBrowserTool = tool({
   }),
   async execute({ url }) {
     try {
+      console.log(`Opening browser and navigating to ${url}...`);
+
+      const browser = await chromium.launch({
+        headless: false,
+        chromiumSandbox: true,
+        env: {},
+        args: ["--disable-extensions", "--disable-file-system"],
+      });
+      const context = await browser.newContext();
+
+      const page = await context.newPage({
+        viewport: { width: 1280, height: 720 },
+      });
+      setPage(page);
+      console.log("Navigating to:", url);
       await page.goto(url);
       return {
         success: true,
