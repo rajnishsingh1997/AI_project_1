@@ -23,6 +23,3 @@ export const browserAgent = new Agent({
   outputType: browserAgentOutputSchema,
 });
 
-const result = await run(browserAgent, 'https://www.google.com');
-
-console.log(result.finalOutput);
